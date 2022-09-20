@@ -3,9 +3,9 @@ import { PagePhoto, PageImageAppend, PageImageNoGap, PageImageShuffle } from '..
 
 const routes = [
   { id: 'home', url: '/', title: 'Photos (Home)', component: <PagePhoto /> },
-  { id: 'image-no-gap', url: 'image-no-gap/', title: 'Image no gap', component: <PageImageNoGap /> },
-  { id: 'image-shuffle', url: 'image-shuffle/', title: 'Image shuffle', component: <PageImageShuffle /> },
-  { id: 'image-append', url: 'image-append/', title: 'Image with load more', component: <PageImageAppend /> },
+  { id: 'photos-no-gap', url: 'photos-no-gap/', title: 'Photos no gap', component: <PageImageNoGap /> },
+  { id: 'photos-shuffle', url: 'photos-shuffle/', title: 'Photos shuffle', component: <PageImageShuffle /> },
+  { id: 'photos-append', url: 'photos-append/', title: 'Photos with load more', component: <PageImageAppend /> },
 ];
 
 const samplePhotos = [
