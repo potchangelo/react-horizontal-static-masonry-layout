@@ -4,9 +4,9 @@
  * @param {import("react").CSSProperties} props.itemStyle
  */
 function _MasonryItem(props) {
-  const { itemStyle, children } = props;
+  const { children } = props;
   return (
-    <div style={itemStyle} data-testid="masonry-item">
+    <div data-testid="masonry-item">
       <div>{children}</div>
     </div>
   );

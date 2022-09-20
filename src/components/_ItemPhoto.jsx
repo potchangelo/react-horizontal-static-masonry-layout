@@ -12,12 +12,9 @@ function _ItemPhoto(props) {
   let imageClass = 'is-relative has-background-light';
   if (!!extraClass) imageClass += ` ${extraClass}`;
 
-  const paddingBottom = (height / width) * 100;
-  const style = { paddingBottom: `${paddingBottom}%` };
-
   return (
-    <div className={imageClass} style={style}>
-      <img className="is-block is-overlay" src={photoUrl} alt={title} />
+    <div className={imageClass}>
+      <img className="is-block" src={photoUrl} alt={title} />
     </div>
   );
 }
