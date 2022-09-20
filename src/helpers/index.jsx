@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { PagePhoto, PageImageAppend, PageImageNoGap, PageImageShuffle } from '../pages';
 
 const routes = [
-  { id: 'home', url: '/', title: 'Image (Home)', component: <PagePhoto /> },
+  { id: 'home', url: '/', title: 'Photos (Home)', component: <PagePhoto /> },
   { id: 'image-no-gap', url: 'image-no-gap/', title: 'Image no gap', component: <PageImageNoGap /> },
   { id: 'image-shuffle', url: 'image-shuffle/', title: 'Image shuffle', component: <PageImageShuffle /> },
   { id: 'image-append', url: 'image-append/', title: 'Image with load more', component: <PageImageAppend /> },
