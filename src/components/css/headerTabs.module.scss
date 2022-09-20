@@ -1,0 +1,61 @@
+@import '../../css/vars.scss';
+
+.main {
+  height: 44px;
+  position: relative;
+  overflow: hidden;
+
+  &:after {
+    content: '';
+    background-image: linear-gradient(to right, rgba($white, 0) 0%, rgba($white, 0.9) 75%);
+    width: 100px;
+    position: absolute;
+    top: 0px;
+    bottom: 1px;
+    right: 0px;
+    pointer-events: none;
+  }
+}
+
+.border {
+  background-color: $grey-lighter;
+  display: block;
+  height: 1px;
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+}
+
+.scrollArea {
+  height: calc(100% + 15px);
+  position: relative;
+  overflow-x: scroll;
+}
+
+.items {
+  display: flex;
+  width: max-content;
+  height: 44px;
+  padding-left: 20px;
+  padding-right: 100px;
+}
+
+.item {
+  color: $grey;
+  border-bottom: 2px solid transparent;
+  font-size: 14px;
+  font-weight: $weight-bold;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+
+  &:not(:last-child) {
+    margin-right: 20px;
+  }
+}
+
+.itemSelected {
+  color: $black-bis;
+  border-bottom: 2px solid $black-bis;
+}

@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import { HeaderNav, HeaderTabs } from './components';
 import { routes } from './helpers';
 
 function App() {
@@ -6,9 +7,10 @@ function App() {
     const { id, url, component } = route;
     return <Route key={id} path={url} element={component} />;
   });
-  console.log('x')
   return (
     <>
+      <HeaderNav />
+      <HeaderTabs />
       <Routes>{routeElements}</Routes>
     </>
   );
