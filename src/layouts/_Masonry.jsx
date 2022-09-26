@@ -25,18 +25,15 @@ function _Masonry(props) {
   // - Effect
   useEffect(() => {
     window.addEventListener('resize', onResize);
+    onResize();
     return () => {
       window.removeEventListener('resize', onResize);
     };
   }, [onResize]);
 
   // TODO : Calculate style for each masonry item
-  // 1. Store in temp array
-  // 2. If got a row -> move from temp array to real array
-  // 3. Continue do 1.
   let tempRowWidths = [];
   let itemsWidths = [];
-  console.log(children.length)
   children.forEach(child => {
     const { width, height } = child.props;
     const itemWidth = width / height * itemHeight;
@@ -47,21 +44,28 @@ function _Masonry(props) {
       tempRowWidths.push(itemWidth);
       return;
     }
-    itemsWidths.push(...tempRowWidths);
+    if (layoutWidth > 0) {
+      console.log(tempRowWidths);
+    }
+    // TODO : Calculate percentage width
+    const tempRowWidths2 = tempRowWidths.map(width => {
+      return (width / sumTempRowWidths * layoutWidth) - 1;
+    });
+    itemsWidths.push(...tempRowWidths2);
     tempRowWidths = [];
     tempRowWidths.push(itemWidth);
   });
   if (tempRowWidths.length > 0) {
     itemsWidths.push(...tempRowWidths);
   }
-  console.log(itemsWidths);
 
   // - Elements
   let childElements = null;
   const childrenCopy = children.map((child, index) => {
     const itemWidth = itemsWidths[index];
     const itemStyle = {
-      width: `${itemWidth}px`
+      width: `${itemWidth}px`,
+      height: `${itemHeight}px`
     };
     return React.cloneElement(child, { itemStyle });
   });
