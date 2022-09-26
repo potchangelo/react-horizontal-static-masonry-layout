@@ -13,12 +13,12 @@ const itemHeight = 220;
 function _Masonry(props) {
   // - Data
   const { children } = props;
+  const [layoutWidth, setLayoutWidth] = useState(0);
   const masonryRef = useRef();
 
   function onResize() {
     if (!!masonryRef.current) {
-      console.log(masonryRef.current.offsetWidth);
-      // TODO : Calculate masonry item
+      setLayoutWidth(masonryRef.current.offsetWidth);
     }
   }
 
@@ -30,13 +30,36 @@ function _Masonry(props) {
     };
   }, [onResize]);
 
-  // - Elements
-  let childElements = null;
-  // console.log(children);
-  const childrenCopy = children.map((child, index) => {
+  // TODO : Calculate style for each masonry item
+  // 1. Store in temp array
+  // 2. If got a row -> move from temp array to real array
+  // 3. Continue do 1.
+  let tempRowWidths = [];
+  let itemsWidths = [];
+  console.log(children.length)
+  children.forEach(child => {
     const { width, height } = child.props;
     const itemWidth = width / height * itemHeight;
-    console.log(itemWidth);
+    const sumTempRowWidths = tempRowWidths.reduce((prev, current) => {
+      return prev + current;
+    }, 0);
+    if (sumTempRowWidths + itemWidth <= layoutWidth) {
+      tempRowWidths.push(itemWidth);
+      return;
+    }
+    itemsWidths.push(...tempRowWidths);
+    tempRowWidths = [];
+    tempRowWidths.push(itemWidth);
+  });
+  if (tempRowWidths.length > 0) {
+    itemsWidths.push(...tempRowWidths);
+  }
+  console.log(itemsWidths);
+
+  // - Elements
+  let childElements = null;
+  const childrenCopy = children.map((child, index) => {
+    const itemWidth = itemsWidths[index];
     const itemStyle = {
       width: `${itemWidth}px`
     };
