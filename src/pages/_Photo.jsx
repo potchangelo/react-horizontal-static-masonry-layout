@@ -4,7 +4,7 @@ import { Main, Masonry, MasonryItem } from '../layouts';
 
 function _Photo() {
   const masonryItems = samplePhotos.map(photo => (
-    <MasonryItem key={photo.id} height={photo.height}>
+    <MasonryItem key={photo.id} width={photo.width} height={photo.height}>
       <ItemPhoto photo={photo} />
     </MasonryItem>
   ));

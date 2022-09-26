@@ -13,8 +13,8 @@ function _ItemPhoto(props) {
   if (!!extraClass) imageClass += ` ${extraClass}`;
 
   return (
-    <div className={imageClass}>
-      <img className="is-block" src={photoUrl} alt={title} />
+    <div className={imageClass} style={{ width: '100%', height: '100%' }}>
+      <img className="is-block" src={photoUrl} alt={title} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
     </div>
   );
 }

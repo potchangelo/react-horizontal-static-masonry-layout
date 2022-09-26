@@ -1,6 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useRef } from 'react';
 import { MasonryItem } from '.';
 import style from './css/masonry.module.scss';
+
+const itemHeight = 220;
 
 /**
  * Masonry layout by grid, might have scroll restoration
@@ -10,10 +13,14 @@ import style from './css/masonry.module.scss';
 function _Masonry(props) {
   // - Data
   const { children } = props;
+  const masonryRef = useRef();
 
-  const onResize = useCallback(() => {
-
-  }, []);
+  function onResize() {
+    if (!!masonryRef.current) {
+      console.log(masonryRef.current.offsetWidth);
+      // TODO : Calculate masonry item
+    }
+  }
 
   // - Effect
   useEffect(() => {
@@ -25,13 +32,19 @@ function _Masonry(props) {
 
   // - Elements
   let childElements = null;
-  console.log(children);
+  // console.log(children);
   const childrenCopy = children.map((child, index) => {
-    return React.cloneElement(child, { key: index });
+    const { width, height } = child.props;
+    const itemWidth = width / height * itemHeight;
+    console.log(itemWidth);
+    const itemStyle = {
+      width: `${itemWidth}px`
+    };
+    return React.cloneElement(child, { itemStyle });
   });
 
   return (
-    <div>
+    <div className="masonry-xxxx" ref={masonryRef}>
       <div className={style.layout}>
         {childrenCopy}
       </div>
