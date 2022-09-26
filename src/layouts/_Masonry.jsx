@@ -13,7 +13,7 @@ const itemHeight = 220;
 function _Masonry(props) {
   // - Data
   const { children } = props;
-  const [layoutWidth, setLayoutWidth] = useState(0);
+  const [layoutWidth, setLayoutWidth] = useState(window?.innerWidth ?? 0);
   const masonryRef = useRef();
 
   function onResize() {
@@ -25,13 +25,12 @@ function _Masonry(props) {
   // - Effect
   useEffect(() => {
     window.addEventListener('resize', onResize);
-    onResize();
     return () => {
       window.removeEventListener('resize', onResize);
     };
   }, [onResize]);
 
-  // TODO : Calculate style for each masonry item
+  // - Style widths
   let tempRowWidths = [];
   let itemsWidths = [];
   children.forEach(child => {
@@ -40,20 +39,35 @@ function _Masonry(props) {
     const sumTempRowWidths = tempRowWidths.reduce((prev, current) => {
       return prev + current;
     }, 0);
+
+    // Has remains space : append item
     if (sumTempRowWidths + itemWidth <= layoutWidth) {
       tempRowWidths.push(itemWidth);
       return;
     }
-    if (layoutWidth > 0) {
-      console.log(tempRowWidths);
+
+    // Has remains above threshold space : append item then calculate
+    const remainsWidth = layoutWidth - sumTempRowWidths;
+    if (remainsWidth / itemWidth >= 0.5) {
+
+      tempRowWidths.push(itemWidth);
+      const sumTempRowWidths2 = tempRowWidths.reduce((prev, current) => {
+        return prev + current;
+      }, 0);
+      const tempRowWidths2 = tempRowWidths.map(width => {
+        return (width / sumTempRowWidths2 * layoutWidth) - 1;
+      });
+      itemsWidths.push(...tempRowWidths2);
+      tempRowWidths = [];
+      return;
     }
-    // TODO : Calculate percentage width
+
+    // No remains space : calculate before append item
     const tempRowWidths2 = tempRowWidths.map(width => {
       return (width / sumTempRowWidths * layoutWidth) - 1;
     });
     itemsWidths.push(...tempRowWidths2);
-    tempRowWidths = [];
-    tempRowWidths.push(itemWidth);
+    tempRowWidths = [itemWidth];
   });
   if (tempRowWidths.length > 0) {
     itemsWidths.push(...tempRowWidths);
