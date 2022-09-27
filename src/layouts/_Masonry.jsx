@@ -31,11 +31,18 @@ function _Masonry(props) {
     };
   }, [onResize]);
 
-  // - Arrtibutes
+  // - Attributes
+  const childrenIsItem = children?.type === MasonryItem;
+  const childrenAreItems = Array.isArray(children) && children.every(child => child.type === MasonryItem);
+  let childrenArray = [];
+  if (childrenIsItem || childrenAreItems) {
+    childrenArray = childrenIsItem ? [children] : children
+  }
+
   // 1. Items widths (style)
   let rowItemsWidths = [];
   let itemsWidths = [];
-  children.forEach(child => {
+  childrenArray.forEach(child => {
     const { width, height } = child.props;
     const itemWidth = width / height * itemHeight;
     const sumRowItemsWidths = rowItemsWidths.reduce((sum, w) => sum + w, 0);
@@ -90,21 +97,18 @@ function _Masonry(props) {
   };
 
   // - Elements
-  let childElements = null;
-  if (!!children) {
-    childElements = children.map((child, index) => {
-      const itemWidth = itemsWidths[index];
-      const itemStyle = {
-        width: `${itemWidth}px`,
-        height: `${itemHeight}px`,
-        padding: `${gap / 2}px`
-      };
-      return React.cloneElement(child, {
-        key: `masonry_item_${index}`,
-        itemStyle
-      });
+  const childElements = childrenArray.map((child, index) => {
+    const itemWidth = itemsWidths[index];
+    const itemStyle = {
+      width: `${itemWidth}px`,
+      height: `${itemHeight}px`,
+      padding: `${gap / 2}px`
+    };
+    return React.cloneElement(child, {
+      key: `masonry_item_${index}`,
+      itemStyle
     });
-  }
+  });
 
   return (
     <div className="masonry-container" style={containerStyle}>
