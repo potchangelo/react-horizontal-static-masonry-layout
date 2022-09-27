@@ -45,7 +45,7 @@ function _Masonry(props) {
       return;
     }
 
-    // Has remains above threshold space : append item then calculate
+    // Has remains threshold space : append item, calculate, start new empty row
     const remainsWidth = layoutWidth - sumRowItemsWidths;
     if (remainsWidth / itemWidth >= 0.45) {
       rowItemsWidths.push(itemWidth);
@@ -62,17 +62,18 @@ function _Masonry(props) {
       return;
     }
 
-    // No remains space : calculate before append item
+    // No remains threshold space : calculate, start new row with current item
     const adjustedRowItemsWidths = rowItemsWidths.map((width, index) => {
       const adjustedWidth = width / sumRowItemsWidths * layoutWidth;
       if (index == 0) {
-        return adjustedWidth - 0.1;
+        return adjustedWidth - 0.2;
       }
       return adjustedWidth;
     });
     itemsWidths.push(...adjustedRowItemsWidths);
     rowItemsWidths = [itemWidth];
   });
+  // Fill remains
   if (rowItemsWidths.length > 0) {
     itemsWidths.push(...rowItemsWidths);
   }
