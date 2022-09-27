@@ -1,12 +1,12 @@
 import { v4 as uuidv4 } from 'uuid';
-import { PagePhotosContain, PagePhotosCover, PagePhotosText, PagePhotosShuffle, PageImageAppend } from '../pages';
+import { PagePhotosContain, PagePhotosCover, PagePhotosText, PagePhotosShuffle, PagePhotosAppend } from '../pages';
 
 const routes = [
   { id: 'home', url: '/', title: 'Photos (Home)', component: <PagePhotosContain /> },
   { id: 'photos-cover', url: 'photos-cover/', title: 'Photos cover', component: <PagePhotosCover /> },
   { id: 'photos-text', url: 'photos-text/', title: 'Photos with text', component: <PagePhotosText /> },
   { id: 'photos-shuffle', url: 'photos-shuffle/', title: 'Photos shuffle', component: <PagePhotosShuffle /> },
-  { id: 'photos-append', url: 'photos-append/', title: 'Photos with load more', component: <PageImageAppend /> },
+  { id: 'photos-append', url: 'photos-append/', title: 'Photos with load more', component: <PagePhotosAppend /> },
 ];
 
 const samplePhotos = [
