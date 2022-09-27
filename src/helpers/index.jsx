@@ -1,9 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
-import { PagePhoto, PageImageAppend, PageImageNoGap, PageImageShuffle } from '../pages';
+import { PagePhoto, PageImageAppend, PagePhotosText, PageImageShuffle } from '../pages';
 
 const routes = [
   { id: 'home', url: '/', title: 'Photos (Home)', component: <PagePhoto /> },
-  { id: 'photos-no-gap', url: 'photos-no-gap/', title: 'Photos no gap', component: <PageImageNoGap /> },
+  { id: 'photos-text', url: 'photos-text/', title: 'Photos with text', component: <PagePhotosText /> },
   { id: 'photos-shuffle', url: 'photos-shuffle/', title: 'Photos shuffle', component: <PageImageShuffle /> },
   { id: 'photos-append', url: 'photos-append/', title: 'Photos with load more', component: <PageImageAppend /> },
 ];
