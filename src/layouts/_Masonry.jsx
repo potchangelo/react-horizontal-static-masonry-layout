@@ -3,18 +3,17 @@ import { useRef } from 'react';
 import { MasonryItem } from '.';
 import style from './css/masonry.module.scss';
 
-const itemHeight = 220;
-
 /**
  * Masonry layout by flexbox
  * @param {object} props
+ * @param {number} [props.itemHeight]
  * @param {number} [props.gap]
- * @param {number} [props.outerGap]
+ * @param {number|number[]} [props.outerGap]
  * @param {import('react').ReactElement|import('react').ReactElement[]} [props.children]
  */
 function _Masonry(props) {
   // - Data
-  const { gap = 10, outerGap = 20, children } = props;
+  const { itemHeight = 240, gap = 0, outerGap = 0, children } = props;
   const [layoutWidth, setLayoutWidth] = useState(window?.innerWidth ?? 0);
   const masonryRef = useRef();
 
@@ -92,18 +91,20 @@ function _Masonry(props) {
 
   // - Elements
   let childElements = null;
-  childElements = children.map((child, index) => {
-    const itemWidth = itemsWidths[index];
-    const itemStyle = {
-      width: `${itemWidth}px`,
-      height: `${itemHeight}px`,
-      padding: `${gap / 2}px`
-    };
-    return React.cloneElement(child, {
-      key: `masonry_item_${index}`,
-      itemStyle
+  if (!!children) {
+    childElements = children.map((child, index) => {
+      const itemWidth = itemsWidths[index];
+      const itemStyle = {
+        width: `${itemWidth}px`,
+        height: `${itemHeight}px`,
+        padding: `${gap / 2}px`
+      };
+      return React.cloneElement(child, {
+        key: `masonry_item_${index}`,
+        itemStyle
+      });
     });
-  });
+  }
 
   return (
     <div className="masonry-container" style={containerStyle}>

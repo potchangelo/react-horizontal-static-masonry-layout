@@ -10,7 +10,7 @@ function _Photo() {
   ));
   return (
     <Main>
-      <Masonry>{masonryItems}</Masonry>
+      <Masonry itemHeight={200} gap={20} outerGap={20}>{masonryItems}</Masonry>
     </Main>
   );
 }
