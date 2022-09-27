@@ -14,12 +14,16 @@
   }
 }
 
+.imageObjectFitCover {
+  object-fit: cover;
+}
+
 .imageBottomSpace {
   height: calc(100% - 48px);
 }
 
 .textBlock {
-  padding: 8px 8px 0px;
+  padding: 8px 4px 0px;
 
   &>p {
     text-overflow: ellipsis;
