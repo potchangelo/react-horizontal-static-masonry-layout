@@ -13,7 +13,7 @@ const itemHeight = 220;
  */
 function _Masonry(props) {
   // - Data
-  const { children } = props;
+  const { gap = 10, children } = props;
   const [layoutWidth, setLayoutWidth] = useState(window?.innerWidth ?? 0);
   const masonryRef = useRef();
 
@@ -32,6 +32,7 @@ function _Masonry(props) {
   }, [onResize]);
 
   // - Arrtibutes
+  // 1. Items widths (style)
   let rowItemsWidths = [];
   let itemsWidths = [];
   children.forEach(child => {
@@ -78,20 +79,31 @@ function _Masonry(props) {
     itemsWidths.push(...rowItemsWidths);
   }
 
+  // 2. Gap
+  const layoutStyle = {
+    marginTop: `-${gap / 2}px`,
+    marginLeft: `-${gap / 2}px`,
+    marginRight: `-${gap / 2}px`,
+  };
+
   // - Elements
   let childElements = null;
   childElements = children.map((child, index) => {
     const itemWidth = itemsWidths[index];
     const itemStyle = {
       width: `${itemWidth}px`,
-      height: `${itemHeight}px`
+      height: `${itemHeight}px`,
+      padding: `${gap / 2}px`
     };
-    return React.cloneElement(child, { itemStyle });
+    return React.cloneElement(child, {
+      key: `masonry_item_${index}`,
+      itemStyle
+    });
   });
 
   return (
-    <div className="masonry-xxxx" ref={masonryRef}>
-      <div className={style.layout}>
+    <div className="masonry-container">
+      <div className={style.layout} ref={masonryRef} style={layoutStyle}>
         {childElements}
       </div>
     </div>
