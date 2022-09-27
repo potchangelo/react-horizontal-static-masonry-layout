@@ -9,7 +9,7 @@ function _ItemPhoto(props) {
     extraClass,
   } = props;
 
-  let imageClass = 'is-relative has-background-light';
+  let imageClass = 'is-relative has-background-success';
   if (!!extraClass) imageClass += ` ${extraClass}`;
 
   return (

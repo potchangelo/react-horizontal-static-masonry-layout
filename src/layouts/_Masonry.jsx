@@ -6,8 +6,9 @@ import style from './css/masonry.module.scss';
 const itemHeight = 220;
 
 /**
- * Masonry layout by grid, might have scroll restoration
+ * Masonry layout by flexbox
  * @param {object} props
+ * @param {number} [props.gap]
  * @param {import('react').ReactElement|import('react').ReactElement[]} [props.children]
  */
 function _Masonry(props) {
@@ -30,52 +31,55 @@ function _Masonry(props) {
     };
   }, [onResize]);
 
-  // - Style widths
-  let tempRowWidths = [];
+  // - Arrtibutes
+  let rowItemsWidths = [];
   let itemsWidths = [];
   children.forEach(child => {
     const { width, height } = child.props;
     const itemWidth = width / height * itemHeight;
-    const sumTempRowWidths = tempRowWidths.reduce((prev, current) => {
-      return prev + current;
-    }, 0);
+    const sumRowItemsWidths = rowItemsWidths.reduce((sum, w) => sum + w, 0);
 
     // Has remains space : append item
-    if (sumTempRowWidths + itemWidth <= layoutWidth) {
-      tempRowWidths.push(itemWidth);
+    if (sumRowItemsWidths + itemWidth <= layoutWidth) {
+      rowItemsWidths.push(itemWidth);
       return;
     }
 
     // Has remains above threshold space : append item then calculate
-    const remainsWidth = layoutWidth - sumTempRowWidths;
-    if (remainsWidth / itemWidth >= 0.5) {
-
-      tempRowWidths.push(itemWidth);
-      const sumTempRowWidths2 = tempRowWidths.reduce((prev, current) => {
-        return prev + current;
-      }, 0);
-      const tempRowWidths2 = tempRowWidths.map(width => {
-        return (width / sumTempRowWidths2 * layoutWidth) - 1;
+    const remainsWidth = layoutWidth - sumRowItemsWidths;
+    if (remainsWidth / itemWidth >= 0.45) {
+      rowItemsWidths.push(itemWidth);
+      const updatedSumRowItemsWidths = rowItemsWidths.reduce((sum, w) => sum + w, 0);
+      const adjustedRowItemsWidths = rowItemsWidths.map((width, index) => {
+        const adjustedWidth = width / updatedSumRowItemsWidths * layoutWidth;
+        if (index == 0) {
+          return adjustedWidth - 0.2;
+        }
+        return adjustedWidth;
       });
-      itemsWidths.push(...tempRowWidths2);
-      tempRowWidths = [];
+      itemsWidths.push(...adjustedRowItemsWidths);
+      rowItemsWidths = [];
       return;
     }
 
     // No remains space : calculate before append item
-    const tempRowWidths2 = tempRowWidths.map(width => {
-      return (width / sumTempRowWidths * layoutWidth) - 1;
+    const adjustedRowItemsWidths = rowItemsWidths.map((width, index) => {
+      const adjustedWidth = width / sumRowItemsWidths * layoutWidth;
+      if (index == 0) {
+        return adjustedWidth - 0.1;
+      }
+      return adjustedWidth;
     });
-    itemsWidths.push(...tempRowWidths2);
-    tempRowWidths = [itemWidth];
+    itemsWidths.push(...adjustedRowItemsWidths);
+    rowItemsWidths = [itemWidth];
   });
-  if (tempRowWidths.length > 0) {
-    itemsWidths.push(...tempRowWidths);
+  if (rowItemsWidths.length > 0) {
+    itemsWidths.push(...rowItemsWidths);
   }
 
   // - Elements
   let childElements = null;
-  const childrenCopy = children.map((child, index) => {
+  childElements = children.map((child, index) => {
     const itemWidth = itemsWidths[index];
     const itemStyle = {
       width: `${itemWidth}px`,
@@ -87,7 +91,7 @@ function _Masonry(props) {
   return (
     <div className="masonry-xxxx" ref={masonryRef}>
       <div className={style.layout}>
-        {childrenCopy}
+        {childElements}
       </div>
     </div>
   );
