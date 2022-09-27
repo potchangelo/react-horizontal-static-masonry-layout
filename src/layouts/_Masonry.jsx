@@ -111,7 +111,7 @@ function _Masonry(props) {
   });
 
   return (
-    <div className="masonry-container" style={containerStyle}>
+    <div style={containerStyle}>
       <div className={style.layout} ref={masonryRef} style={layoutStyle}>
         {childElements}
       </div>

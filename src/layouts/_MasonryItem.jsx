@@ -1,3 +1,5 @@
+import style from './css/masonry.module.scss';
+
 /**
  * @param {object} props
  * @param {number} props.width
@@ -7,8 +9,8 @@
 function _MasonryItem(props) {
   const { itemStyle, children } = props;
   return (
-    <div className="masonry-item" data-testid="masonry-item" style={itemStyle}>
-      <div style={{ width: '100%', height: '100%' }}>{children}</div>
+    <div data-testid="masonry-item" style={itemStyle}>
+      <div className={style.item}>{children}</div>
     </div>
   );
 }
