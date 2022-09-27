@@ -2,7 +2,7 @@ import { ItemPhoto } from '../components';
 import { samplePhotos } from '../helpers';
 import { Main, Masonry, MasonryItem } from '../layouts';
 
-function _Photo() {
+function _PhotosContain() {
   const masonryItems = samplePhotos.map(photo => (
     <MasonryItem key={photo.id} width={photo.width} height={photo.height}>
       <ItemPhoto photo={photo} />
@@ -15,4 +15,4 @@ function _Photo() {
   );
 }
 
-export default _Photo;
+export default _PhotosContain;

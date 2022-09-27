@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
-import { PagePhoto, PagePhotosCover, PageImageAppend, PagePhotosText, PageImageShuffle } from '../pages';
+import { PagePhotosContain, PagePhotosCover, PageImageAppend, PagePhotosText, PageImageShuffle } from '../pages';
 
 const routes = [
-  { id: 'home', url: '/', title: 'Photos (Home)', component: <PagePhoto /> },
+  { id: 'home', url: '/', title: 'Photos (Home)', component: <PagePhotosContain /> },
   { id: 'photos-cover', url: 'photos-cover/', title: 'Photos cover', component: <PagePhotosCover /> },
   { id: 'photos-text', url: 'photos-text/', title: 'Photos with text', component: <PagePhotosText /> },
   { id: 'photos-shuffle', url: 'photos-shuffle/', title: 'Photos shuffle', component: <PageImageShuffle /> },
