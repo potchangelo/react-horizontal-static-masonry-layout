@@ -9,11 +9,12 @@ const itemHeight = 220;
  * Masonry layout by flexbox
  * @param {object} props
  * @param {number} [props.gap]
+ * @param {number} [props.outerGap]
  * @param {import('react').ReactElement|import('react').ReactElement[]} [props.children]
  */
 function _Masonry(props) {
   // - Data
-  const { gap = 10, children } = props;
+  const { gap = 10, outerGap = 20, children } = props;
   const [layoutWidth, setLayoutWidth] = useState(window?.innerWidth ?? 0);
   const masonryRef = useRef();
 
@@ -80,6 +81,9 @@ function _Masonry(props) {
   }
 
   // 2. Gap
+  const containerStyle = {
+    padding: Array.isArray(outerGap) ? outerGap.map(g => `${g}px`).join(' ') : `${outerGap}px`
+  }
   const layoutStyle = {
     marginTop: `-${gap / 2}px`,
     marginLeft: `-${gap / 2}px`,
@@ -102,7 +106,7 @@ function _Masonry(props) {
   });
 
   return (
-    <div className="masonry-container">
+    <div className="masonry-container" style={containerStyle}>
       <div className={style.layout} ref={masonryRef} style={layoutStyle}>
         {childElements}
       </div>
