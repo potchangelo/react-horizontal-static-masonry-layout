@@ -10,7 +10,9 @@ function _PhotosCover() {
   ));
   return (
     <Main>
-      <Masonry itemHeight={200} gap={20} outerGap={20}>{masonryItems}</Masonry>
+      <Masonry itemHeight={200} gap={20} outerGap={20}>
+        {masonryItems}
+      </Masonry>
     </Main>
   );
 }

@@ -10,7 +10,9 @@ import style from './css/itemPhoto.module.scss';
 function _ItemPhoto(props) {
   const {
     photo: { title, description, photoUrl },
-    extraClass, imageObjectFit = 'contain', hasText = false
+    extraClass,
+    imageObjectFit = 'contain',
+    hasText = false,
   } = props;
 
   let mainClass = style.main;

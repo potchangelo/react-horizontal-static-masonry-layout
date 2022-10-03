@@ -37,7 +37,7 @@ function _Masonry(props) {
   const childrenAreItems = Array.isArray(children) && children.every(child => child.type === MasonryItem);
   let childrenArray = [];
   if (childrenIsItem || childrenAreItems) {
-    childrenArray = childrenIsItem ? [children] : children
+    childrenArray = childrenIsItem ? [children] : children;
   }
 
   // 1. Items widths (style)
@@ -45,7 +45,7 @@ function _Masonry(props) {
   let itemsWidths = [];
   childrenArray.forEach(child => {
     const { width, height } = child.props;
-    const itemWidth = width / height * itemHeight;
+    const itemWidth = (width / height) * itemHeight;
     const sumRowItemsWidths = rowItemsWidths.reduce((sum, w) => sum + w, 0);
 
     // Has remains space : append item
@@ -60,7 +60,7 @@ function _Masonry(props) {
       rowItemsWidths.push(itemWidth);
       const updatedSumRowItemsWidths = rowItemsWidths.reduce((sum, w) => sum + w, 0);
       const adjustedRowItemsWidths = rowItemsWidths.map((width, index) => {
-        const adjustedWidth = width / updatedSumRowItemsWidths * layoutWidth;
+        const adjustedWidth = (width / updatedSumRowItemsWidths) * layoutWidth;
         if (index == 0) {
           return adjustedWidth - 1;
         }
@@ -73,7 +73,7 @@ function _Masonry(props) {
 
     // No remains threshold space : calculate, start new row with current item
     const adjustedRowItemsWidths = rowItemsWidths.map((width, index) => {
-      const adjustedWidth = width / sumRowItemsWidths * layoutWidth;
+      const adjustedWidth = (width / sumRowItemsWidths) * layoutWidth;
       if (index == 0) {
         return adjustedWidth - 1;
       }
@@ -89,8 +89,8 @@ function _Masonry(props) {
 
   // 2. Gap
   const containerStyle = {
-    padding: Array.isArray(outerGap) ? outerGap.map(g => `${g}px`).join(' ') : `${outerGap}px`
-  }
+    padding: Array.isArray(outerGap) ? outerGap.map(g => `${g}px`).join(' ') : `${outerGap}px`,
+  };
   const layoutStyle = {
     marginTop: `-${gap / 2}px`,
     marginLeft: `-${gap / 2}px`,
@@ -103,11 +103,11 @@ function _Masonry(props) {
     const itemStyle = {
       width: `${itemWidth}px`,
       height: `${itemHeight}px`,
-      padding: `${gap / 2}px`
+      padding: `${gap / 2}px`,
     };
     return React.cloneElement(child, {
       key: `masonry_item_${index}`,
-      itemStyle
+      itemStyle,
     });
   });
 

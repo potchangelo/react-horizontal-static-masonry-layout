@@ -10,7 +10,9 @@ function _PhotosText() {
   ));
   return (
     <Main>
-      <Masonry itemHeight={266} gap={20} outerGap={20}>{masonryItems}</Masonry>
+      <Masonry itemHeight={266} gap={20} outerGap={20}>
+        {masonryItems}
+      </Masonry>
     </Main>
   );
 }

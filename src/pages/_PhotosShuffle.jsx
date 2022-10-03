@@ -27,7 +27,9 @@ function _PhotosShuffle() {
 
   return (
     <Main>
-      <Masonry itemHeight={200} gap={20} outerGap={20}>{masonryItems}</Masonry>
+      <Masonry itemHeight={200} gap={20} outerGap={20}>
+        {masonryItems}
+      </Masonry>
       <button
         className="button is-primary"
         style={{ position: 'fixed', bottom: '12px', right: '12px', zIndex: 10000 }}
