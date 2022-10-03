@@ -61,7 +61,7 @@ function _Masonry(props) {
       const adjustedRowItemsWidths = rowItemsWidths.map((width, index) => {
         const adjustedWidth = width / updatedSumRowItemsWidths * layoutWidth;
         if (index == 0) {
-          return adjustedWidth - 0.2;
+          return adjustedWidth - 1;
         }
         return adjustedWidth;
       });
@@ -74,7 +74,7 @@ function _Masonry(props) {
     const adjustedRowItemsWidths = rowItemsWidths.map((width, index) => {
       const adjustedWidth = width / sumRowItemsWidths * layoutWidth;
       if (index == 0) {
-        return adjustedWidth - 0.2;
+        return adjustedWidth - 1;
       }
       return adjustedWidth;
     });
