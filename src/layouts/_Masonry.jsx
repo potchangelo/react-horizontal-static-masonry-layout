@@ -17,15 +17,16 @@ function _Masonry(props) {
   const [layoutWidth, setLayoutWidth] = useState(window?.innerWidth ?? 0);
   const masonryRef = useRef();
 
-  function onResize() {
+  const onResize = useCallback(() => {
     if (!!masonryRef.current) {
       setLayoutWidth(masonryRef.current.offsetWidth);
     }
-  }
+  }, []);
 
   // - Effect
   useEffect(() => {
     window.addEventListener('resize', onResize);
+    if (!!masonryRef.current) onResize();
     return () => {
       window.removeEventListener('resize', onResize);
     };
