@@ -25,7 +25,7 @@ test('One item', () => {
   render(
     <Masonry>
       <MasonryItem key="item-1" height={100} />
-    </Masonry>
+    </Masonry>,
   );
   const columns = screen.getAllByTestId('masonry-column');
   expect(columns.length).toBeGreaterThanOrEqual(1);
@@ -39,7 +39,7 @@ test('More than one items', () => {
       <MasonryItem key="item-1" height={100} />
       <MasonryItem key="item-2" height={150} />
       <MasonryItem key="item-3" height={200} />
-    </Masonry>
+    </Masonry>,
   );
   const columns = screen.getAllByTestId('masonry-column');
   expect(columns.length).toBeGreaterThanOrEqual(1);
@@ -53,7 +53,7 @@ test('Items without height', () => {
       <MasonryItem key="item-1" />
       <MasonryItem key="item-2" />
       <MasonryItem key="item-3" />
-    </Masonry>
+    </Masonry>,
   );
   const columns = screen.getAllByTestId('masonry-column');
   expect(columns.length).toBeGreaterThanOrEqual(1);
@@ -65,7 +65,7 @@ test('Wrong children type', () => {
   render(
     <Masonry>
       <span>Not masonry item</span>
-    </Masonry>
+    </Masonry>,
   );
   const columns = screen.queryAllByTestId('masonry-column');
   expect(columns.length).toBeFalsy();
@@ -83,7 +83,7 @@ test('Resizing with default breakpoints', () => {
   render(
     <Masonry>
       <MasonryItem key="item-1" height={100} />
-    </Masonry>
+    </Masonry>,
   );
 
   expectedResults.forEach(result => {
@@ -115,7 +115,7 @@ test('Resizing with defined breakpoints', () => {
     <Masonry breakpoints={breakpoints}>
       <MasonryItem key="item-1" height={100} />
       <MasonryItem key="item-2" height={100} />
-    </Masonry>
+    </Masonry>,
   );
 
   expectedResults.forEach(result => {
