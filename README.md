@@ -1,4 +1,4 @@
-# react Horizontal Static Masonry Layout
+# React Horizontal Static Masonry Layout
 
 https://react-hs-masonry-layout.netlify.app/
 

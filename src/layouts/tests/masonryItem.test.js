@@ -11,7 +11,7 @@ test('Item has content', () => {
   render(
     <MasonryItem>
       <p>Whatever here should display properly</p>
-    </MasonryItem>
+    </MasonryItem>,
   );
   const content = screen.getByText(/Whatever/);
   expect(content).toBeInTheDocument();
